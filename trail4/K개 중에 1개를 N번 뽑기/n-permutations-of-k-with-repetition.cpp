@@ -2,34 +2,35 @@
 
 using namespace std;
 
-int K, N;
-int arr[10];
+int grid[10];
 
-void print() {
-    for(int i = 0; i < N; i++) {
-        cout << arr[i] << " ";
+int K, N;
+
+void print(){
+    for(int i = 0; i < N; i++){
+        cout << grid[i] << " ";
     }
-    cout << "\n";
+    cout << endl;
 }
 
-void dfs(int cnt) {
-    // N개의 숫자를 모두 골랐으면 출력
+void back(int cnt){
     if(cnt == N) {
         print();
         return;
     }
 
-    // 현재 위치에 1 ~ K를 하나씩 선택
-    for(int i = 1; i <= K; i++) {
-        arr[cnt] = i;
-        dfs(cnt + 1);
+    for(int i = 1; i <= K; i++){
+        grid[cnt] = i;
+        back(cnt + 1);
     }
 }
 
 int main() {
     cin >> K >> N;
 
-    dfs(0);
+    // Please write your code here.
+
+    back(0);
 
     return 0;
 }
