@@ -12,6 +12,8 @@ int dx[2] = {0, 1};
 int dy[2] = {1, 0};
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     cin >> n;
 
     for (int i = 0; i < n; i++) {
