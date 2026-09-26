@@ -21,16 +21,17 @@ int main() {
     //               if(s >= 11) dp[i - 1][s - 1][b] + s[i]
     //               if(b >= 9) dp[i - 1][s][b - 1] + b[i]
 
-    vector<vector<vector<long long>>> dp(n + 1, vector<vector<long long>>(12, vector<long long>(10)));
+    vector<vector<vector<long long>>> dp(n + 1, vector<vector<long long>>(12, vector<long long>(10, -1)));
+    dp[0][0][0] = 0;
 
     for(int i = 1; i <= n; i++){
         for(int s = 0; s <= 11; s++){
             for(int b = 0; b <= 9; b++){
                 dp[i][s][b] = dp[i - 1][s][b];
 
-                if(s >= 1) dp[i][s][b] = max(dp[i][s][b], dp[i - 1][s - 1][b] + soccer[i]);
+                if(s >= 1 && dp[i - 1][s - 1][b] != -1) dp[i][s][b] = max(dp[i][s][b], dp[i - 1][s - 1][b] + soccer[i]);
 
-                if(b >= 1) dp[i][s][b] = max(dp[i][s][b], dp[i - 1][s][b - 1] + baseball[i]);
+                if(b >= 1 && dp[i - 1][s][b - 1] != -1) dp[i][s][b] = max(dp[i][s][b], dp[i - 1][s][b - 1] + baseball[i]);
             }
         }
     }
