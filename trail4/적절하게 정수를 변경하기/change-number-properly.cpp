@@ -30,13 +30,15 @@ int main() {
             vector<int>(M + 1, -1)
         )
     );
-    dp[0][0][0] = 0;
-    dp[0][1][0] = 0;
-    dp[0][2][0] = 0;
-    dp[0][3][0] = 0;
-    dp[0][4][0] = 0;
 
-    for(int i = 1; i <= N; i++){
+    for(int j = 1; j <= 4; j++){
+        if(a[1] == j)
+            dp[1][j][0] = 1;
+        else
+            dp[1][j][0] = 0;
+    }
+
+    for(int i = 2; i <= N; i++){
         for(int j = 1; j <= 4; j++){
             for(int k = 0; k <= M; k++){
                 int value = 0;
