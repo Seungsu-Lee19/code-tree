@@ -3,45 +3,36 @@
 
 using namespace std;
 
-int N, M;
+int n, m;
 int a[100000];
 
 int main() {
-    cin >> N >> M;
+    cin >> n >> m;
 
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
 
-    // 현재 비어 있는 의자
+    // m명의 사람을 어디에 앉아야, 앉은 사람 수를 최대로 할 수 있을까?
+    // 순서대로 앉도록 하다가, 못 앉으면 종료.
+
     set<int> se;
-
-    for (int i = 1; i <= M; i++) {
-        se.insert(i);
-    }
-
     int ans = 0;
+    for(int i = 1; i <= m; i++) se.insert(i);
 
-    for (int i = 0; i < N; i++) {
-
-        // a[i]보다 큰 첫 번째 의자
+    for(int i = 0; i < n; i++){
         auto it = se.upper_bound(a[i]);
 
-        // a[i] 이하인 빈 의자가 하나도 없음
-        if (it == se.begin()) {
+        if(it == se.begin()) {
+            // cout << i; 
             break;
         }
-
-        // a[i] 이하인 의자 중 가장 큰 의자
-        --it;
-
-        // 해당 의자에 앉음
+        
+        it--;
         se.erase(it);
-
         ans++;
     }
 
-    cout << ans << '\n';
-
+    cout << ans;
     return 0;
 }
