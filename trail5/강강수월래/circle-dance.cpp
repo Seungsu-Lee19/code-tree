@@ -79,7 +79,8 @@ int main() {
             cin >> a;
 
             Node* cur = student[a];
-            Node* start = student[a];
+            Node* end = student[a];
+            Node* start = nullptr;
             int idx = 100000000;
 
             while(1){
@@ -89,10 +90,10 @@ int main() {
                 }
                 cur = cur->next;
 
-                if(cur == start) break;
+                if(cur == end) break;
             }
 
-            Node* end = start;
+            end = start;
             while(1){
                 cout << start->num << " ";
                 start = start->prev;
