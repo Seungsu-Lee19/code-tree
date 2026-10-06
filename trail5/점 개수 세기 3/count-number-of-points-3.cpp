@@ -9,6 +9,9 @@ const int MAX_N = 100000;
 int n, q;
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
     cin >> n >> q;
 
     vector<int> vec(n);
