@@ -1,6 +1,6 @@
 #include <iostream>
-#include <unordered_map>
-#include <set>
+#include <algorithm>
+#include <vector>
 #include <climits>
 
 using namespace std;
@@ -11,27 +11,20 @@ int n, q;
 int main() {
     cin >> n >> q;
 
-    set<int> se;
-    int point;
+    vector<int> vec(n);
     for (int i = 0; i < n; i++) {
-        cin >> point;
-        se.insert(point);
+        cin >> vec[i];
     }
-
-    unordered_map<int, int> mp;
-    int prev = INT_MIN;
-    for(auto p: se){
-        if(prev == INT_MIN) mp[p] = 1;
-        else mp[p] = mp[prev] + 1;
-
-        prev = p;
-    }
+    sort(vec.begin(), vec.end());
 
     int a, b;
     for (int i = 0; i < q; i++) {
         cin >> a >> b;
 
-        cout << mp[b] - mp[a] + 1 << "\n";
+        auto left = lower_bound(vec.begin(), vec.end(), a);
+        auto right = lower_bound(vec.begin(), vec.end(), b);
+
+        cout << right - left + 1 << "\n";
     }
 
     // Please write your code here.
