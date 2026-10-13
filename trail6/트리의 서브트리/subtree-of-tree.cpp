@@ -10,13 +10,13 @@ vector<vector<int>> graph;
 vector<int> dp;
 vector<bool> visited;
 
-void dfs(int node, int prev){
+void dfs(int node){
     dp[node] = 1;
 
     for(int next: graph[node]){
         if(!visited[next]){
             visited[next] = true;
-            dfs(next, node);
+            dfs(next);
             dp[node] += dp[next];
         }
     }
@@ -39,7 +39,7 @@ int main() {
     }
 
     visited[r] = true;
-    dfs(r, 0);
+    dfs(r);
 
     int U;
     for (int i = 0; i < q; i++) {
