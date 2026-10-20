@@ -13,6 +13,9 @@ ll B;
 priority_queue<ll> q;
 
 bool check(ll mid){
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
     ll cost = B;
     priority_queue<ll> temp = q;
 
