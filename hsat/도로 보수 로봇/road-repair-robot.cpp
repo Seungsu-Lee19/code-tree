@@ -39,7 +39,7 @@ int main() {
 
     // Please write your code here.
     int left = 1;
-    int right = 1000000000;
+    int right = positions[N - 1];
     int ans = right - left + 1;
 
     while(left <= right){
