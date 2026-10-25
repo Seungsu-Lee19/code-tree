@@ -1,16 +1,27 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int N, M;
 vector<string> sequences;
+vector<int> sub_mask;
+
+void dfs(int depth, int sub, int mask){
+    if(depth == N){
+        sub_mask.push_back(mask);
+        return;
+    }
+    
+    dfs(depth + 1, sub, mask);
+
+    int bit = sub & (1 << depth);
+    if(bit != 0) dfs(depth + 1, sub, (mask | bit));
+}
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
     cin >> N >> M;
     sequences.resize(N);
 
@@ -23,24 +34,21 @@ int main() {
     for(int mask = 1; mask < (1 << N); mask++){
         for(int j = 0; j < M; j++){
             char c = '.';
-
             for(int i = 0; i < N; i++){
                 if(!(mask & (1 << i))) continue;
                 if(sequences[i][j] == '.') continue;
 
-                if(c == '.'){
-                    c = sequences[i][j];
-                }
-                else if(c != sequences[i][j]){
+                if(c == '.') c = sequences[i][j];
+                else if(sequences[i][j] != c){
                     valid[mask] = false;
                     break;
                 }
             }
+
             if(!valid[mask]) break;
         }
     }
 
-    // dp[mask]
     vector<int> dp(1 << N, N + 1);
 
     for(int mask = 1; mask < (1 << N); mask++){
@@ -49,14 +57,15 @@ int main() {
             continue;
         }
 
-        for (int sub = (mask - 1) & mask; sub > 0; sub = (sub - 1) & mask) {
-            if (valid[sub]) {
-                dp[mask] = min(dp[mask],
-                               dp[mask ^ sub] + 1);
+        sub_mask.clear();
+        dfs(0, mask, 0);
+        for(int i = 0; i < sub_mask.size(); i++){
+            if(valid[sub_mask[i]]){
+                dp[mask] = min(dp[mask], dp[sub_mask[i] ^ mask] + 1);
             }
         }
     }
-
+    
     cout << dp[(1 << N) - 1];
 
     return 0;
